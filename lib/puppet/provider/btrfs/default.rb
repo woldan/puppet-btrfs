@@ -5,13 +5,10 @@ Puppet::Type.type(:btrfs).provide(:default) do
 
   # The btrfs command => puppet converts this into a handy method:
   commands :btrfscmd => "btrfs"
-
   # The mkfs.btrfs command => puppet converts this into a handy method:
   commands :mkfscmd => "/sbin/mkfs.btrfs"
-
   # The mount command => puppet converts this into a handy method:
   commands :mountcmd => "mount"
-
   # The umount command => puppet converts this into a handy method:
   commands :umountcmd => "umount"
 
@@ -28,7 +25,7 @@ Puppet::Type.type(:btrfs).provide(:default) do
 
   def destroy
     umountcmd @resource[:mountpoint]
-    #TODO: should we do anything else?
+    #TODO: should we do any actual destruction?
   end
 
   def exists?
