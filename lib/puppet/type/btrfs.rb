@@ -7,8 +7,9 @@ Puppet::Type.newtype(:btrfs) do
          Example:
            
            btrfs { "/data":
-             device     => '/dev/sdb',
-             label      => 'mydata',
+	     ensure => present,
+             device => '/dev/sdb',
+             label  => 'mydata',
            }
   EOT
 
