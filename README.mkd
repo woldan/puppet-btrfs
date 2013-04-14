@@ -1,0 +1,39 @@
+# btrfs type for Puppet
+
+A basic type and provider to manage btrfs filesystems using Puppet.
+
+This does not deal with btrfs subvolumes and snapshots which are
+provided by separate types.
+
+Currently this is work in progress and not yet ready for public
+usage. You are welcome to participate, though.
+
+## Prerequisites
+
+Naturally this will only be of use or even work on a system having
+btrfs filesystem support. At the time of this writing this amounts
+pretty much to more traditional Linux flavours such as
+Debian/Ubuntu/Red Hat/etc. and specific mobile Linux variants such
+as Maemo/Meego/Sailfish (not sure how much use Puppet sees on such
+systems).
+
+On Solaris variants and BSD-ish systems (including Mac OS X) you
+might be better served (fs-wise and module-wise) by using the much
+more mature ZFS and its officially distributed Puppet module by
+the same name.
+
+## Declaring btrfs filesystems
+
+To declare a btrfs filesystem use a definition like this:
+
+    btrfs { "/some/mountpoint" :
+      ensure => present,
+      device => '/dev/sdb',
+      label  => 'data',
+    }
+
+This effects in:
+
+ 1. Actual creation of the filesystem if necessary: `mkfs.btrfs -L <label> <device>`
+ 2. Steps to ensure that the resulting filesystem is mounted: `mount -t btrfs <device> <mountpoint>`
+
