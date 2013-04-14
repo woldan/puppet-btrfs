@@ -19,6 +19,11 @@ Puppet::Type.type(:btrfs).provide(:default) do
       mkfscmd "-L", @resource[:label], @resource[:device]
     end
 
+    # .. ensure the requested mountpoint is there ..
+    unless File.directory? @resource[:mountpoint]
+      FileUtils.mkpath @resource[:mountpoint]
+    end
+
     # .. mount filesystem ..
     mountcmd "-t", "btrfs", @resource[:device], @resource[:mountpoint]
   end
